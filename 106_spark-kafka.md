@@ -90,3 +90,5 @@ zookeeper.connect=node-1.xiaoniu.com:2181,node-2.xiaoniu.com:2181,node-3.xiaoniu
 # 消费者连接到borker的地址
 /bigdata/kafka_2.11-0.10.2.1/bin/kafka-console-consumer.sh --bootstrap-server node-1.xiaoniu.com:9092,node-2.xiaoniu.com:9092,node-3.xiaoniu.com:9092 --topic xiaoniu --from-beginning 
 ```
+
+
