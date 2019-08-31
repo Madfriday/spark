@@ -103,7 +103,7 @@ Receiver是使用Kafka的高层次Consumer API来实现的。Receiver接收固�
    
 Direct直连方式，  
 
-它使用的是底层API实现Offest我们开发人员管理，这样的话，它的灵活性特别好。并且可以保证数据的安全性，而且不用担心数据量过大，因为它有预处理机制，进行提前处理，然后再批次提交任务。direct 这种方式会周期性地查询Kafka，来获得每个topic+partition的最新的offset，从而定义每个batch的offset的范围。当处理数据的job启动时，就会使用Kafka的简单consumer api来获取Kafka指定offset范围的数据。这种方式有如下优点：
+Direct方式采用Kafka简单的consumer api方式来读取数据，无需经由ZooKeeper，此种方式不再需要专门Receiver来持续不断读取数据。当batch任务触发时，由Executor读取数据，并参与到其他Executor的数据计算过程中去。driver来决定读取多少offsets，并将offsets交由checkpoints来维护。将触发下次batch任务，再由Executor读取Kafka数据并计算。从此过程我们可以发现Direct方式无需Receiver读取数据，而是需要计算时再读取数据，所以Direct方式的数据消费对内存的要求不高，只需要考虑批量计算所需要的内存即可；另外batch任务堆积时，也不会影响数据堆积。它使用的是底层API实现Offest我们开发人员管理，这样的话，它的灵活性特别好。并且可以保证数据的安全性，而且不用担心数据量过大，因为它有预处理机制，进行提前处理，然后再批次提交任务。direct 这种方式会周期性地查询Kafka，来获得每个topic+partition的最新的offset，从而定义每个batch的offset的范围。当处理数据的job启动时，就会使用Kafka的简单consumer api来获取Kafka指定offset范围的数据。这种方式有如下优点：
 
 
 ![direct](images/k2.png "direct")
