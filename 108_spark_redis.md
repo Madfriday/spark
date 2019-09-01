@@ -1,4 +1,4 @@
-###redis
+### redis
 
 Redis是目前一个非常优秀的key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set有序集合)和hash（哈希类型）。  
   
